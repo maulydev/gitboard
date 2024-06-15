@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 
 const useOnlineStatus = () => {
-  // Initialize state with the current online status
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
-    // Event listeners to update the online status
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
+    if (typeof navigator !== "undefined") {
+      setIsOnline(navigator.onLine);
 
-    // Add event listeners
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+      const handleOnline = () => setIsOnline(true);
+      const handleOffline = () => setIsOnline(false);
 
-    // Cleanup event listeners on component unmount
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
+
+      return () => {
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+    } else {
+      console.warn("Navigator not available.");
+    }
   }, []);
 
   return isOnline;

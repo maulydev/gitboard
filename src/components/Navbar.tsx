@@ -1,3 +1,4 @@
+// Navbar.tsx
 "use client";
 
 import Image from "next/image";
@@ -5,24 +6,41 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const Navbar = () => {
+interface User {
+  login?: string;
+  avatar_url?: string;
+}
+
+interface LocalStorageUser {
+  user?: User;
+}
+
+const Navbar: React.FC = () => {
   const pathname = usePathname();
 
-  const [loggedInUser, setLoggedInUser] = useState(
-    JSON.parse(localStorage.getItem("user") || "{}")
-  );
+  const [loggedInUser, setLoggedInUser] = useState<User>({});
 
-  const handleStorageChange = () => {
-    setLoggedInUser(JSON.parse(localStorage.getItem("user") || "{}"));
+  const handleStorageChange = (): void => {
+    const user = JSON.parse(
+      localStorage.getItem("user") || "{}"
+    ) as LocalStorageUser;
+    setLoggedInUser(user.user || {});
   };
 
   useEffect(() => {
+    // Retrieve user data from localStorage on initial render
+    const user = JSON.parse(
+      localStorage.getItem("user") || "{}"
+    ) as LocalStorageUser;
+    setLoggedInUser(user.user || {});
+
+    // Add event listener for storage changes (optional)
     window.addEventListener("storage", handleStorageChange);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [loggedInUser, pathname]);
+  }, [pathname]);
 
   return (
     <nav className="bg-white p-4 sticky top-0 shadow-lg shadow-gray-300 z-50">
@@ -38,14 +56,11 @@ const Navbar = () => {
           />
         </Link>
 
-        {localStorage.getItem("user") && (
+        {loggedInUser?.login && (
           <div className="flex items-center gap-2 animate-fade-left">
             <div className="size-10 rounded-full bg-gray-700 border-2 border-gray-100 flex-shrink-0 overflow-hidden">
               <Image
-                src={
-                  JSON.parse(localStorage.getItem("user") || "{}")?.user
-                    ?.avatar_url || "/avatar.png" || loggedInUser?.user?.avatar_url
-                }
+                src={loggedInUser?.avatar_url || "/avatar.png"}
                 alt="user"
                 width={100}
                 height={100}
@@ -53,8 +68,7 @@ const Navbar = () => {
               />
             </div>
             <Link href="" className="text-sm">
-              {JSON.parse(localStorage.getItem("user") || "{}")?.user?.login || loggedInUser?.user?.login ||
-                "..."}
+              {loggedInUser?.login || "..."}
             </Link>
           </div>
         )}

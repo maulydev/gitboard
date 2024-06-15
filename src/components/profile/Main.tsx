@@ -17,7 +17,9 @@ const Main = () => {
     queryFn: async () => {
       try {
         const response = await request(`/users/${username}`);
-        localStorage.setItem("user", JSON.stringify({ user: response.data }));
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user", JSON.stringify({ user: response.data }));
+        }
         return response.data;
       } catch (error) {
         throw new Error("Failed to fetch user data");

@@ -11,6 +11,7 @@ type RepoProps = {
   description: string;
   created_at: string;
   language: string;
+  html_url: string;
 };
 
 const PublicRepos = ({ repos }: any) => {
@@ -24,7 +25,8 @@ const PublicRepos = ({ repos }: any) => {
             <LuFolderGit2 />
             <div className="w-full">
               <Link
-                href=""
+                target="_blank"
+                href={repo?.html_url}
                 className="hover:underline hover:text-pink-500 text-gray-800 font-medium flex items-center gap-3"
               >
                 <span>{repo?.name}</span>

@@ -10,7 +10,7 @@ type PanelCardProps = {
 
 const PanelCard = ({ children, title, isLoading, error }: PanelCardProps) => {
   return (
-    <div className="bg-white rounded-lg p-8 space-y-8 text-gray-800">
+    <div className="bg-white rounded-lg pl-6 pr-2 py-6 space-y-8 text-gray-800">
       <div className="flex flex-col">
         <h5 className="font-bold text-xl">{title}</h5>
         <div className="w-14 h-0.5 bg-purple-500 mt-1" />

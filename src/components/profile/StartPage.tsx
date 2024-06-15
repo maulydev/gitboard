@@ -10,9 +10,6 @@ export default function StartPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username")?.toString() || "";
-    if (typeof window !== "undefined") {
-      localStorage.setItem("user", JSON.stringify({ username }));
-    }
     router.push(`/profile/${username}`);
   };
 

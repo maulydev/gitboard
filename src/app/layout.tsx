@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${poppins.className} bg-gray-100`}>
         <TanstackProvider>
           <Navbar />
-          <div className="container mx-auto">{children}</div>
+          <div className="container mx-auto p-2 md:p-4">{children}</div>
         </TanstackProvider>
       </body>
     </html>

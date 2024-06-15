@@ -34,12 +34,11 @@ const ReceivedEvents = ({ username }: { username: string }) => {
     },
   });
 
-
   return (
     <section>
       <Card title="Received Events" className="space-y-10">
         {data?.map((event: EventProps) => (
-          <div key={event.id} className="flex gap-4">
+          <div key={event.id} className="flex flex-col md:flex-row gap-4">
             <div className="rounded-full overflow-hidden flex-shrink-0 size-[50px]">
               <Image
                 src={event.actor.avatar_url}
@@ -65,8 +64,15 @@ const ReceivedEvents = ({ username }: { username: string }) => {
                 </small>
               </div>
               <div className="bg-gray-100 p-4 rounded w-full">
-                <a target="_blank" href={event.repo.url} className="hover:underline flex items-center gap-2 hover:text-pink-400">
-                <LuFolderGit2 /> {event.repo.name}
+                <a
+                  target="_blank"
+                  href={event.repo.url.replaceAll(
+                    "https://api.github.com/repos",
+                    "https://github.com"
+                  )}
+                  className="hover:underline text-sm md:text-base flex gap-2 hover:text-pink-400 "
+                >
+                  <LuFolderGit2  className="flex-shrink-0 mt-1"/> {event.repo.name}
                 </a>
               </div>
             </div>

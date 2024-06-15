@@ -1,49 +1,15 @@
-// Navbar.tsx
 "use client";
 
+import { useProfileStore } from "@/store/profileStore";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-interface User {
-  login?: string;
-  avatar_url?: string;
-}
-
-interface LocalStorageUser {
-  user?: User;
-}
 
 const Navbar: React.FC = () => {
-  const pathname = usePathname();
-
-  const [loggedInUser, setLoggedInUser] = useState<User>({});
-
-  const handleStorageChange = (): void => {
-    const user = JSON.parse(
-      localStorage.getItem("user") || "{}"
-    ) as LocalStorageUser;
-    setLoggedInUser(user.user || {});
-  };
-
-  useEffect(() => {
-    // Retrieve user data from localStorage on initial render
-    const user = JSON.parse(
-      localStorage.getItem("user") || "{}"
-    ) as LocalStorageUser;
-    setLoggedInUser(user.user || {});
-
-    // Add event listener for storage changes (optional)
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [pathname]);
+  const login = useProfileStore((state) => state.login);
+  const avatar_url = useProfileStore((state) => state.avatar_url);
 
   return (
-    <nav className="bg-white p-4 sticky top-0 shadow-lg shadow-gray-300 z-50">
+    <nav className="bg-white p-4 sticky top-0 shadow-lg shadow-gray-300 z-50 inset-x-0">
       <div className="container mx-auto px-6 p-2 rounded-sm flex items-center justify-between">
         <Link href="/" className="animate-fade-right">
           <Image
@@ -56,11 +22,11 @@ const Navbar: React.FC = () => {
           />
         </Link>
 
-        {loggedInUser?.login && (
+        {login && avatar_url && (
           <div className="flex items-center gap-2 animate-fade-left">
             <div className="size-10 rounded-full bg-gray-700 border-2 border-gray-100 flex-shrink-0 overflow-hidden">
               <Image
-                src={loggedInUser?.avatar_url || "/avatar.png"}
+                src={avatar_url || "/avatar.png"}
                 alt="user"
                 width={100}
                 height={100}
@@ -68,7 +34,7 @@ const Navbar: React.FC = () => {
               />
             </div>
             <Link href="" className="text-sm">
-              {loggedInUser?.login || "..."}
+              {(login && avatar_url && login) || "..."}
             </Link>
           </div>
         )}

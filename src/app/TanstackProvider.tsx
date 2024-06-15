@@ -13,8 +13,10 @@ const TanstackProvider = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {!isOnline && (
-        <div className="bg-red-500 text-white fixed bottom-0 inset-x-0 p-2 text-center animate-flip-up">Your currently offline!</div>
+      {typeof window !== "undefined" && !isOnline && (
+        <div className="bg-red-500 text-white fixed bottom-0 inset-x-0 p-2 text-center animate-flip-up">
+          Your currently offline!
+        </div>
       )}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

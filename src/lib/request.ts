@@ -8,7 +8,7 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     // Do something before request is sent, like adding an auth token
-    config.headers.Authorization = process.env.TOKEN;
+    config.headers.Authorization = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     return config;
   },
   (error) => {

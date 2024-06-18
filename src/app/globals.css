@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  font-family: Poppins, "sans-serif";
+  font-family: "Montserrat" !important;
 }
 
 /* width */
@@ -13,15 +15,15 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgb(231, 206, 255); 
+  background: rgb(231, 206, 255);
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(168 85 247); 
+  background: rgb(168 85 247);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(107, 28, 182); 
+  background: rgb(107, 28, 182);
 }

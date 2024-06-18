@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        Poppins: ["Poppins", "sans-serif"],
-        Inter: ["Inter", "sans-serif"],
+        Poppins: ["Poppins", "sans"],
+        Inter: ["Inter", "sans"],
       },
     },
   },

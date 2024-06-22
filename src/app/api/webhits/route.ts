@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "You're in development mode" });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to process request" },
+      { error: `Failed to process request ${error}` },
       { status: 500 }
     );
   }

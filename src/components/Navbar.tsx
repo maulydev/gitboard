@@ -1,12 +1,22 @@
 "use client";
 
+import { sendToWebhits } from "@/lib/requests";
 import { useProfileStore } from "@/store/profileStore";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 const Navbar: React.FC = () => {
   const login = useProfileStore((state) => state.login);
   const avatar_url = useProfileStore((state) => state.avatar_url);
+
+  const pathname = usePathname();
+  
+  useEffect(() => {
+    sendToWebhits(pathname);
+  }, [pathname]);
+
 
   return (
     <nav className="bg-white p-4 sticky top-0 shadow-lg shadow-gray-300 z-50 inset-x-0">

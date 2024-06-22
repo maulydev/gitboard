@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Intro from "./Intro";
 import ReceivedEvents from "./ReceivedEvents";
+import request from "@/lib/request";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
-import request from "@/lib/request";
 import { useProfileStore } from "@/store/profileStore";
+import { sendToWebhits } from "@/lib/requests";
 
 const Main: React.FC = () => {
   const pathname = usePathname();

@@ -11,20 +11,6 @@ interface RequestBody {
   path: string;
 }
 
-// Function to read existing device info from JSON file
-function readDeviceInfo(): any[] {
-  try {
-    const fileData = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(fileData);
-  } catch (error) {
-    return [];
-  }
-}
-
-// Function to write updated device info to JSON file
-function writeDeviceInfo(deviceInfo: any[]) {
-  fs.writeFileSync(filePath, JSON.stringify(deviceInfo, null, 2), "utf-8");
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,18 +33,6 @@ export async function POST(request: NextRequest) {
       path: requestBody.path,
     };
 
-    // Read existing device info from JSON file
-    let deviceInfo = readDeviceInfo();
-
-    // Append new device info to existing data
-    deviceInfo.push(newDeviceInfo);
-
-    // Write updated device info back to JSON file
-    if (process.env.NODE_ENV === "production") {
-      writeDeviceInfo(deviceInfo);
-    }
-
-    // Return response (optional)
     return NextResponse.json(newDeviceInfo);
   } catch (error) {
     console.error("Error processing request:", error);

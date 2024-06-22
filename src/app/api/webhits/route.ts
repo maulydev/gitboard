@@ -29,8 +29,8 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(newHit);
     }
+    return NextResponse.json({ message: "You're in development mode" });
   } catch (error) {
-    console.error("Error processing request:", error);
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 500 }
@@ -39,5 +39,10 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  return Response.json({ data: "Hello" });
+  const data = await prisma.webhits.findMany();
+  const home = data.filter((hit) => hit.path === "/")?.length
+  const profile = data.filter((hit) => hit.path.startsWith("/profile"))?.length
+  const totalHits = data.length;
+
+  return Response.json({ home, profile, totalHits, data });
 }

@@ -9,7 +9,6 @@ const filePath = path.join(process.cwd(), "deviceInfo.json");
 // Define interface for the request body
 interface RequestBody {
   path: string;
-  // Add more fields as needed
 }
 
 // Function to read existing device info from JSON file
@@ -18,7 +17,6 @@ function readDeviceInfo(): any[] {
     const fileData = fs.readFileSync(filePath, "utf-8");
     return JSON.parse(fileData);
   } catch (error) {
-    // If file doesn't exist or is empty, return an empty array
     return [];
   }
 }

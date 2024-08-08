@@ -2,10 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import WebHits2 from "../WebHits2";
 
 export default function StartPage() {
   const router = useRouter();
-  
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

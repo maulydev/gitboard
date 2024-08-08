@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   const data = await prisma.webhits.findMany();
-  const home = data.filter((hit) => hit.path === "/")?.length
-  const profile = data.filter((hit) => hit.path.startsWith("/profile"))?.length
+  const home = data.filter((hit: any) => hit.path === "/")?.length
+  const profile = data.filter((hit: any) => hit.path.startsWith("/profile"))?.length
   const totalHits = data.length;
 
   return Response.json({ home, profile, totalHits, data });

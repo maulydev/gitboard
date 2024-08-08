@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
+import WebHits2 from "./WebHits2";
 
 type CardProps = {
   children?: ReactNode;

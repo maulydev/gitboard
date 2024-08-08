@@ -3,7 +3,7 @@ const WebHits2 = () => {
   const isProduction = process.env.NODE_ENV === "production";
   return (
     <div className="flex flex-col">
-      {!isProduction && (
+      {isProduction && (
         <a href="https://www.freecounterstat.com" title="free counter">
           <img
           className="w-32"
